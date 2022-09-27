@@ -5,7 +5,7 @@ import QtQuick.Controls 2.13
 import QtQuick.Dialogs.qml 1.0
 import QtGraphicalEffects 1.0
 
-Window {
+ApplicationWindow {
     id: window
     visible: true
     width: 680
@@ -18,6 +18,12 @@ Window {
 
     signal elcusStateChanged(bool state)
 
+
+    function stateApplicationChenged(state)
+    {
+        running = state;
+    }
+
     ToolBar {
         RowLayout {
             anchors.fill: parent
@@ -29,6 +35,7 @@ Window {
                 onClicked: {
                     running = true;
                     elcusStateChanged(running)
+                    connectElcus.open()
                 }
                 enabled: running ? false : true
 
@@ -70,20 +77,25 @@ Window {
 
             ToolButton {
                 id: toolButton2
-                                          text: qsTr("Tool Button")
-                                      }
+              text: qsTr("Tool Button")
+            }
 
-                                      ToolButton {
-                                          id: toolButton3
-                                          text: qsTr("Tool Button")
-                                      }
+              ToolButton {
+                  id: toolButton3
+                  text: qsTr("Tool Button")
+              }
 
-                                      SpinBox {
-                                          id: spinBox
-                                      }
+              SpinBox {
+                  id: spinBox
+              }
 
         }
     }
+
+    ConnectToElcus {
+        id: connectElcus;
+    }
+
 }
 
 
